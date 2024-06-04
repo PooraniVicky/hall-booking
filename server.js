@@ -67,7 +67,7 @@ app.post('/bookings', (req, res) => {
 // Endpoint to list all rooms along with their booking details
 app.get('/rooms', (req, res) => {
     const result = rooms.map(room => {
-        const roomBookings = bookings.filter(booking => booking.roomId === room.roomId);
+        const roomBookings = bookings.filter(booking => booking.roomId === rooms.roomId);
         return {
             ...room,
             bookings: roomBookings.map(booking => ({
