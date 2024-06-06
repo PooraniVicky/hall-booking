@@ -59,6 +59,7 @@ app.post('/bookings', (req, res) => {
         bookingDate: new Date().toISOString(), // Record the current date and time
         bookingStatus: 'Confirmed' // Set the booking status to Confirmed
     };
+
     bookings.push(booking);
     res.status(201).json(booking);
 });
@@ -67,7 +68,7 @@ app.post('/bookings', (req, res) => {
 // Endpoint to list all rooms along with their booking details
 app.get('/rooms', (req, res) => {
     const result = rooms.map(room => {
-        const roomBookings = bookings.filter(booking => booking.roomId === rooms.roomId);
+        const roomBookings = bookings.filter(booking => booking.roomId === room.roomId);
         return {
             ...room,
             bookings: roomBookings.map(booking => ({
@@ -75,8 +76,10 @@ app.get('/rooms', (req, res) => {
                 date: booking.date,
                 startTime: booking.startTime,
                 endTime: booking.endTime
+
             }))
-        };
+           
+        };       
     });
     res.json(result);
 });
